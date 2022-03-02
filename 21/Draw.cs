@@ -21,19 +21,19 @@ namespace _21
         internal static void WinScreen(int[] player, int[] opponent)
         {
             Console.WriteLine("Вы выиграли");
-            DrawFinal(player, opponent);
+            DrawEnd(player, opponent);
         }
         internal static void LoseScreen(int[] player, int[] opponent)
         {
             Console.WriteLine("Вы проиграли");
 
-            DrawFinal(player, opponent);
+            DrawEnd(player, opponent);
         }
         internal static void drawScreen(int[] player, int[] opponent)
         {
             Console.WriteLine("Ничья");
 
-            DrawFinal(player, opponent);
+            DrawEnd(player, opponent);
         }
 
         private static string DrawCardsOf(int[] cards)
@@ -50,7 +50,7 @@ namespace _21
             }
             return sb.ToString();
         }
-        private static void DrawFinal(int[] player, int[] opponent)
+        private static void DrawEnd(int[] player, int[] opponent)
         {
             Console.WriteLine("Ваши карты");
             Console.WriteLine(DrawCardsOf(player));
