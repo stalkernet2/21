@@ -10,9 +10,9 @@ namespace _21
     {
         internal static void WhichKeyWasPress(ConsoleKeyInfo key)
         {
-            switch (key.KeyChar)
+            switch (key.Key)
             {
-                case (char)ConsoleKey.Escape:
+                case ConsoleKey.Escape:
                     if (Program.menu && !Program.gameStart)
                     {
                         Environment.Exit(0);
@@ -22,7 +22,7 @@ namespace _21
                         Program.gameStart = false;
                     }
                     break;
-                case (char)ConsoleKey.Spacebar:
+                case ConsoleKey.Spacebar:
                     if (Program.gameStart)
                     {
                         Program.player.Draw();
@@ -32,18 +32,18 @@ namespace _21
                         }
                     }
                     break;
-                case (char)ConsoleKey.Enter:
+                case ConsoleKey.Enter:
                     if (!Program.gameStart)
                     {
                         Program.gameStart = true;
                     }
                     else
                     {
+                        Program.opponent.IsItWorthTaking(Check.Sum(Program.opponent.Cards));
                         Check.WhoWin(Program.player.Cards, Program.opponent.Cards);
                     }
                     break;
                 default:
-                    WhichKeyWasPress(Console.ReadKey());
                     break;
             }
         }

@@ -1,36 +1,53 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace _21
 {
-    internal class Draw
+    public class Draw
     {
-        internal static void Menu()
+        private static int _borderSize = 5;
+        private static char[] _chars = new char[4] { '\u2588', '\u2593', '\u2592', '\u2591' };
+        public static void Menu()
         {
-            Console.WriteLine("MenuDrawed");
+            Console.Clear();
+            Console.WriteLine(BorderY(1));
+            for (int i = 0; i < Console.WindowHeight - 7; i++)
+            {
+                Console.WriteLine();
+            }
+            //Console.WriteLine(BorderX(""));
+            //Console.WriteLine(BorderX("███████████    ███"));
+            //Console.WriteLine(BorderX("███     ███    ███"));
+            //Console.WriteLine(BorderX("      ███      ███"));
+            //Console.WriteLine(BorderX("   ███         ███"));
+            //Console.WriteLine(BorderX("████           ███"));
+            //Console.WriteLine(BorderX("███████████    ███"));
+            Console.WriteLine(BorderY(-1));
+            //Console.WriteLine(ToCenter("MenuDrawed"));
         }
-        internal static void Game(int[] player, int[] opponent)
+        public static void Game(int[] player, int[] opponent)
         {
+            Console.Clear();
             Console.WriteLine("GameDrawed");
             Console.WriteLine(DrawCardsOf(player));
-            //Console.WriteLine(DrawCardsOf(opponent)); // debug
+            Console.WriteLine(DrawCardsOf(opponent)); // debug
         }
-        internal static void WinScreen(int[] player, int[] opponent)
+        public static void WinScreen(int[] player, int[] opponent)
         {
+            Console.Clear();
             Console.WriteLine("Вы выиграли");
+
             DrawEnd(player, opponent);
         }
-        internal static void LoseScreen(int[] player, int[] opponent)
+        public static void LoseScreen(int[] player, int[] opponent)
         {
+            Console.Clear();
             Console.WriteLine("Вы проиграли");
 
             DrawEnd(player, opponent);
         }
-        internal static void drawScreen(int[] player, int[] opponent)
+        public static void drawScreen(int[] player, int[] opponent)
         {
+            Console.Clear();
             Console.WriteLine("Ничья");
 
             DrawEnd(player, opponent);
@@ -58,6 +75,60 @@ namespace _21
             Console.WriteLine(DrawCardsOf(opponent));
             Program.gameStart = false;
             Console.ReadKey();
+        }
+        private static string BorderY(int offset)
+        {
+            
+            StringBuilder borderLine = new StringBuilder();
+
+            for (int i = 0; i < _borderSize - 2; i++)
+            {
+                for (int j = 0; j < Console.WindowWidth; j++)
+                {
+                    borderLine.Append(_chars[i]);
+                }
+                if (i != _borderSize - 3)
+                {
+                    borderLine.Append('\n');
+                }
+            }
+            
+            switch(offset)
+            {
+                case 1:
+                    return borderLine.ToString();
+                case -1:
+                    return TrueReverse(borderLine);
+                default:
+                    throw new Exception();
+            }    
+        }
+        private static string BorderX(string text)
+        {
+            StringBuilder Line = new StringBuilder();
+
+            for (int i = 0; i < _borderSize - 2; i++)
+            {
+                Line.Append(_chars[i]);
+            }
+            for(int i = 0; i < (Console.WindowWidth - text.Length - (_borderSize * 2)) / 2; i++)
+            {
+                Line.Append(' ');
+            }
+
+            return Line.ToString() + text + TrueReverse(Line);
+        }
+        private static string TrueReverse(StringBuilder text)
+        {
+            char[] reverseChar = text.ToString().Reverse().ToArray();
+            StringBuilder reverseFinal = new StringBuilder();
+
+            for (int i = 0; i < reverseChar.Length; i++)
+            {
+                reverseFinal.Append(reverseChar[i]);
+            }
+
+            return reverseFinal.ToString();
         }
     }
 }

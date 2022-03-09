@@ -6,20 +6,34 @@ using System.Threading.Tasks;
 
 namespace _21
 {
-    internal class Hand
+    public class Hand
     {
-        internal int[] Cards = new int[8];
+        public int[] Cards = new int[8];
 
         private int CardPosition = 0;
-        internal void Draw()
+        private bool FirstDraw = true;
+        public void Draw()
         {
+            if(FirstDraw)
+            {
+                FirstDraw = false;
+                Draw();
+            }
             Random random = new Random();
             Cards[CardPosition] = Deck.Cards[random.Next(0, Deck.Cards.Rank), random.Next(0, Deck.CardsLength)];
             CardPosition++;
         }
-        internal void IsItWorthTaking()
+        public void IsItWorthTaking(int sumCards)
         {
-
+            Random rand = new Random();
+            if(sumCards < 16)
+            {
+                int randnum = rand.Next(0, 4);
+                if(randnum % 2 == 0)
+                {
+                    Draw();
+                }
+            }
         }
     }
 }
