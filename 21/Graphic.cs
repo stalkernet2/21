@@ -2,58 +2,12 @@
 
 namespace _21
 {
-    public class Draw
+    public class Graphic
     {
         private static int _borderSize = 5;
         private static char[] _chars = new char[4] { '\u2588', '\u2593', '\u2592', '\u2591' };
-        public static void Menu()
-        {
-            Console.Clear();
-            Console.WriteLine(BorderY(1));
-            for (int i = 0; i < Console.WindowHeight - 7; i++)
-            {
-                Console.WriteLine();
-            }
-            //Console.WriteLine(BorderX(""));
-            //Console.WriteLine(BorderX("███████████    ███"));
-            //Console.WriteLine(BorderX("███     ███    ███"));
-            //Console.WriteLine(BorderX("      ███      ███"));
-            //Console.WriteLine(BorderX("   ███         ███"));
-            //Console.WriteLine(BorderX("████           ███"));
-            //Console.WriteLine(BorderX("███████████    ███"));
-            Console.WriteLine(BorderY(-1));
-            //Console.WriteLine(ToCenter("MenuDrawed"));
-        }
-        public static void Game(int[] player, int[] opponent)
-        {
-            Console.Clear();
-            Console.WriteLine("GameDrawed");
-            Console.WriteLine(DrawCardsOf(player));
-            Console.WriteLine(DrawCardsOf(opponent)); // debug
-        }
-        public static void WinScreen(int[] player, int[] opponent)
-        {
-            Console.Clear();
-            Console.WriteLine("Вы выиграли");
 
-            DrawEnd(player, opponent);
-        }
-        public static void LoseScreen(int[] player, int[] opponent)
-        {
-            Console.Clear();
-            Console.WriteLine("Вы проиграли");
-
-            DrawEnd(player, opponent);
-        }
-        public static void drawScreen(int[] player, int[] opponent)
-        {
-            Console.Clear();
-            Console.WriteLine("Ничья");
-
-            DrawEnd(player, opponent);
-        }
-
-        private static string DrawCardsOf(int[] cards)
+        public static string ShowCardsOf(int[] cards)
         {
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < cards.Length; i++)
@@ -67,16 +21,16 @@ namespace _21
             }
             return sb.ToString();
         }
-        private static void DrawEnd(int[] player, int[] opponent)
+        public static void DrawEnd(int[] player, int[] opponent)
         {
             Console.WriteLine("Ваши карты");
-            Console.WriteLine(DrawCardsOf(player));
+            Console.WriteLine(ShowCardsOf(player));
             Console.WriteLine("Карты опонента");
-            Console.WriteLine(DrawCardsOf(opponent));
-            Program.gameStart = false;
+            Console.WriteLine(ShowCardsOf(opponent));
+            Game.gameStart = false;
             Console.ReadKey();
         }
-        private static string BorderY(int offset)
+        public static string BorderY(int offset)
         {
             
             StringBuilder borderLine = new StringBuilder();

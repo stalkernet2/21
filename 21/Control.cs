@@ -6,42 +6,50 @@ using System.Threading.Tasks;
 
 namespace _21
 {
-    internal class Control
+    public class Control
     {
-        internal static void WhichKeyWasPress(ConsoleKeyInfo key)
+        public static void WhichKeyWasPress(ConsoleKeyInfo key)
         {
             switch (key.Key)
             {
                 case ConsoleKey.Escape:
-                    if (Program.menu && !Program.gameStart)
+                    if (Game.menu && !Game.gameStart)
                     {
                         Environment.Exit(0);
                     }
-                    else if (Program.gameStart)
+                    else if (Game.gameStart)
                     {
-                        Program.gameStart = false;
+                        Game.gameStart = false;
                     }
                     break;
                 case ConsoleKey.Spacebar:
-                    if (Program.gameStart)
+                    if (Game.gameStart)
                     {
-                        Program.player.Draw();
-                        if (Check.Sum(Program.opponent.Cards) < 21)
+                        Game.player.Draw();
+                        if (Check.Sum(Game.opponent.Cards) < 21)
                         {
-                            Program.opponent.Draw();
+                            Game.opponent.Draw();
                         }
                     }
                     break;
                 case ConsoleKey.Enter:
-                    if (!Program.gameStart)
+                    if (!Game.gameStart)
                     {
-                        Program.gameStart = true;
+                        Game.gameStart = true;
                     }
                     else
                     {
-                        Program.opponent.IsItWorthTaking(Check.Sum(Program.opponent.Cards));
-                        Check.WhoWin(Program.player.Cards, Program.opponent.Cards);
+                        Game.opponent.IsItWorthTaking(Check.Sum(Game.opponent.Cards));
+                        Check.WhoWin(Game.player.Cards, Game.opponent.Cards);
                     }
+                    break;
+                case ConsoleKey.UpArrow:
+                    Menu.Index -= 1;
+                    Console.WriteLine(Menu.Index);
+                    break;
+                case ConsoleKey.DownArrow:
+                    Menu.Index += 1;
+                    Console.WriteLine(Menu.Index);
                     break;
                 default:
                     break;

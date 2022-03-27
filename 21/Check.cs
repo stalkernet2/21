@@ -15,15 +15,15 @@ namespace _21
 
             if (opponentSum > 21 && playerSum > 21)
             {
-                Draw.drawScreen(playerCards, opponentCards);
+                Frame.Draw(playerCards, opponentCards);
             }
             else if (playerSum > 21 || (opponentSum > playerSum && opponentSum <= 21))
             {
-                Draw.LoseScreen(playerCards, opponentCards);
+                Frame.Lose(playerCards, opponentCards);
             }
             else if (opponentSum > 21 || (playerSum > opponentSum && playerSum <=21))
             {
-                Draw.WinScreen(playerCards, opponentCards);
+                Frame.Win(playerCards, opponentCards);
             }
             
         }
