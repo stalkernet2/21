@@ -10,10 +10,10 @@ namespace _21
     {
         public static void WhoWin(int[] playerCards, int[] opponentCards)
         {
-            int playerSum = Sum(playerCards);
-            int opponentSum = Sum(opponentCards);
+            int playerSum = playerCards.Sum();
+            int opponentSum = opponentCards.Sum();
 
-            if (opponentSum > 21 && playerSum > 21)
+            if (opponentSum >= 21 && playerSum >= 21)
             {
                 Frame.Draw(playerCards, opponentCards);
             }
@@ -25,17 +25,10 @@ namespace _21
             {
                 Frame.Win(playerCards, opponentCards);
             }
-            
-        }
-
-        public static int Sum(int [] cards)
-        {
-            int sum = 0;
-            for (int i = 0; i < cards.Length; i++)
+            else
             {
-                sum += cards[i];
+                Frame.Draw(playerCards, opponentCards);
             }
-            return sum;
         }
     }
 }

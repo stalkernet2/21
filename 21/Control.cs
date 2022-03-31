@@ -13,45 +13,46 @@ namespace _21
             switch (key.Key)
             {
                 case ConsoleKey.Escape:
-                    if (Game.menu && !Game.gameStart)
+                    if (Game.InMenu && !Game.GameStart)
                     {
                         Environment.Exit(0);
                     }
-                    else if (Game.gameStart)
+                    else if (Game.GameStart)
                     {
-                        Game.gameStart = false;
+                        Game.GameStart = false;
                     }
                     break;
                 case ConsoleKey.Spacebar:
-                    if (Game.gameStart)
+                    if (Game.GameStart)
                     {
-                        Game.player.Draw();
-                        if (Check.Sum(Game.opponent.Cards) < 21)
+                        Game.Player.Draw();
+                        if (Game.Opponent.Cards.Sum() <= 21)
                         {
-                            Game.opponent.Draw();
+                            Game.Opponent.Draw();
                         }
                     }
                     break;
                 case ConsoleKey.Enter:
-                    if (!Game.gameStart)
+                    if (!Game.GameStart)
                     {
-                        Game.gameStart = true;
+                        Menu.Selected();
                     }
                     else
                     {
-                        Game.opponent.IsItWorthTaking(Check.Sum(Game.opponent.Cards));
-                        Check.WhoWin(Game.player.Cards, Game.opponent.Cards);
+                        int cardSum = Game.Opponent.Cards.Sum();    
+                        while (cardSum < 16)
+                        {
+                            Game.Opponent.IsItWorthTaking(cardSum);
+                            cardSum = Game.Opponent.Cards.Sum();
+                        }
+                        Check.WhoWin(Game.Player.Cards, Game.Opponent.Cards);
                     }
                     break;
                 case ConsoleKey.UpArrow:
                     Menu.Index -= 1;
-                    Console.WriteLine(Menu.Index);
                     break;
                 case ConsoleKey.DownArrow:
                     Menu.Index += 1;
-                    Console.WriteLine(Menu.Index);
-                    break;
-                default:
                     break;
             }
         }

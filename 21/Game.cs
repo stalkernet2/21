@@ -8,26 +8,26 @@ namespace _21
 {
     public class Game
     {
-        public static bool menu = true;
-        public static bool gameStart = false;
-        public static bool gameEnded = false;
+        public static bool InMenu = true;
+        public static bool GameStart = false;
+        public static bool GameEnded = false;
 
-        public static Hand player = new Hand();
-        public static Hand opponent = new Hand();
+        public static Hand Player = new Hand();
+        public static Hand Opponent = new Hand();
 
         public static void Start()
         {
-            while (menu)
+            while (InMenu)
             {
-                player = new Hand();
-                opponent = new Hand();
-                Frame.Menu();
+                Player = new Hand();
+                Opponent = new Hand();
+                Frame.Main1();
 
                 Control.WhichKeyWasPress(Console.ReadKey());
 
-                while (gameStart)
+                while (GameStart)
                 {
-                    Frame.Session(player.Cards, opponent.Cards);
+                    Frame.InGame(Player.Cards, Opponent.Cards);
 
                     Control.WhichKeyWasPress(Console.ReadKey());
                 }

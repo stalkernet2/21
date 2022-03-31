@@ -8,16 +8,16 @@ namespace _21
 {
     public class Frame
     {
-        public static void Menu()
+        public static void Main1()
         {
             Console.Clear();
             Console.WriteLine(Graphic.BorderY(1));
 
-
+            Menu.ChooseIndex();
 
             Console.WriteLine(Graphic.BorderY(-1));
         }
-        public static void Session(int[] player, int[] opponent)
+        public static void InGame(int[] player, int[] opponent)
         {
             Console.Clear();
             Console.WriteLine("GameDrawed");
@@ -29,21 +29,34 @@ namespace _21
             Console.Clear();
             Console.WriteLine("Вы выиграли");
 
-            Graphic.DrawEnd(player, opponent);
+            DrawEnd(player, opponent);
         }
         public static void Lose(int[] player, int[] opponent)
         {
             Console.Clear();
             Console.WriteLine("Вы проиграли");
 
-            Graphic.DrawEnd(player, opponent);
+            DrawEnd(player, opponent);
         }
         public static void Draw(int[] player, int[] opponent)
         {
             Console.Clear();
             Console.WriteLine("Ничья");
 
-            Graphic.DrawEnd(player, opponent);
+            DrawEnd(player, opponent);
+        }
+        public static void Help()
+        {
+            Console.WriteLine("Здесь, покачто, ничего нету");
+        }
+        private static void DrawEnd(int[] player, int[] opponent)
+        {
+            Console.WriteLine("Ваши карты");
+            Console.WriteLine(Graphic.ShowCardsOf(player));
+            Console.WriteLine("Карты опонента");
+            Console.WriteLine(Graphic.ShowCardsOf(opponent));
+            Game.GameStart = false;
+            Console.ReadKey();
         }
     }
 }

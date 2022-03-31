@@ -4,8 +4,8 @@ namespace _21
 {
     public class Graphic
     {
-        private static int _borderSize = 5;
-        private static char[] _chars = new char[4] { '\u2588', '\u2593', '\u2592', '\u2591' };
+        private static readonly int _borderSize = 5;
+        private static readonly char[] _chars = new char[4] { '\u2588', '\u2593', '\u2592', '\u2591' };
 
         public static string ShowCardsOf(int[] cards)
         {
@@ -20,15 +20,6 @@ namespace _21
                     sb.Append(cards[i]);
             }
             return sb.ToString();
-        }
-        public static void DrawEnd(int[] player, int[] opponent)
-        {
-            Console.WriteLine("Ваши карты");
-            Console.WriteLine(ShowCardsOf(player));
-            Console.WriteLine("Карты опонента");
-            Console.WriteLine(ShowCardsOf(opponent));
-            Game.gameStart = false;
-            Console.ReadKey();
         }
         public static string BorderY(int offset)
         {
