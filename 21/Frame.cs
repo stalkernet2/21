@@ -8,7 +8,14 @@ namespace _21
 {
     public class Frame
     {
-        public static void Main1()
+        private static Action[] actions = { InMenu, Help, InGame };
+        public static int Index = 0;
+        public static void Draw()
+        {
+            actions[Index].Invoke();
+        }
+
+        private static void InMenu()
         {
             Console.Clear();
             Console.WriteLine(Graphic.BorderY(1));
@@ -17,45 +24,27 @@ namespace _21
 
             Console.WriteLine(Graphic.BorderY(-1));
         }
-        public static void InGame(int[] player, int[] opponent)
+        private static void InGame()
         {
             Console.Clear();
             Console.WriteLine("GameDrawed");
-            Console.WriteLine(Graphic.ShowCardsOf(player));
-            Console.WriteLine(Graphic.ShowCardsOf(opponent)); // debug
-        }
-        public static void Win(int[] player, int[] opponent)
-        {
-            Console.Clear();
-            Console.WriteLine("Вы выиграли");
-
-            DrawEnd(player, opponent);
-        }
-        public static void Lose(int[] player, int[] opponent)
-        {
-            Console.Clear();
-            Console.WriteLine("Вы проиграли");
-
-            DrawEnd(player, opponent);
-        }
-        public static void Draw(int[] player, int[] opponent)
-        {
-            Console.Clear();
-            Console.WriteLine("Ничья");
-
-            DrawEnd(player, opponent);
+            Console.WriteLine(Graphic.ShowCardsOf(Game.Player.Cards));
+            Console.WriteLine(Graphic.ShowCardsOf(Game.Opponent.Cards)); // debug
         }
         public static void Help()
         {
+            Console.Clear();
             Console.WriteLine("Здесь, покачто, ничего нету");
         }
-        private static void DrawEnd(int[] player, int[] opponent)
+        public static void DrawEnd(string text)
         {
+            Console.Clear();
+            Console.WriteLine(text);
             Console.WriteLine("Ваши карты");
-            Console.WriteLine(Graphic.ShowCardsOf(player));
+            Console.WriteLine(Graphic.ShowCardsOf(Game.Player.Cards));
             Console.WriteLine("Карты опонента");
-            Console.WriteLine(Graphic.ShowCardsOf(opponent));
-            Game.GameStart = false;
+            Console.WriteLine(Graphic.ShowCardsOf(Game.Opponent.Cards));
+            Index = (int)Player.In.Menu;
             Console.ReadKey();
         }
     }

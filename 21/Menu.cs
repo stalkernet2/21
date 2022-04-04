@@ -41,33 +41,45 @@ namespace _21
         {
             for (int i = 0; i < MenuText.Length; i++)
             {
+                if(i == 0)
+                {
+                    Graphic.ToCenterY(MenuText.Length);
+                }
                 if(i != index)
                 {
-                    Console.WriteLine(MenuText[i]);
+                    Console.WriteLine(Graphic.ToCenterX(MenuText[i]));
                 }
                 else
                 {
+                    Console.Write(Graphic.ToSide(MenuText[i]));
                     Console.ForegroundColor = ConsoleColor.Black;
                     Console.BackgroundColor = ConsoleColor.White;
-                    Console.WriteLine(MenuText[i]);
+                    Console.Write(MenuText[i]);
                     Console.ResetColor();
+                    Console.WriteLine(Graphic.ToSide(MenuText[i]));
+                }
+                if(i == MenuText.Length- 1 )
+                {
+                    Graphic.ToCenterY(MenuText.Length);
                 }
             }
         }
 
-        public static void Selected()
+        public static void Select()
         {
             actions[index].Invoke();
         }
 
         private static void Play()
         {
-            Game.GameStart = true;
+            Game.Player = new Hand();
+            Game.Opponent = new Hand();
             Deck.Init();
+            Frame.Index = (int)Player.In.Game;
         }
         private static void Help()
         {
-            Frame.Help();
+            Frame.Index = (int)Player.In.Help;
         }
         private static void Exit()
         {

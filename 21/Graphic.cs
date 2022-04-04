@@ -4,8 +4,8 @@ namespace _21
 {
     public class Graphic
     {
-        private static readonly int _borderSize = 5;
-        private static readonly char[] _chars = new char[4] { '\u2588', '\u2593', '\u2592', '\u2591' };
+        private static readonly int BorderSize = 5;
+        private static readonly char[] BorderChars = new char[4] { '\u2588', '\u2593', '\u2592', '\u2591' };
 
         public static string ShowCardsOf(int[] cards)
         {
@@ -26,13 +26,13 @@ namespace _21
             
             StringBuilder borderLine = new StringBuilder();
 
-            for (int i = 0; i < _borderSize - 2; i++)
+            for (int i = 0; i < BorderSize - 2; i++)
             {
-                for (int j = 0; j < Console.WindowWidth; j++)
+                for (int j = 0; j < Console.WindowWidth - 1; j++)
                 {
-                    borderLine.Append(_chars[i]);
+                    borderLine.Append(BorderChars[i]);
                 }
-                if (i != _borderSize - 3)
+                if (i != BorderSize - 3)
                 {
                     borderLine.Append('\n');
                 }
@@ -48,32 +48,39 @@ namespace _21
                     throw new Exception();
             }    
         }
-        private static string BorderX(string text)
+
+        public static string ToCenterX(string text)
         {
-            StringBuilder Line = new StringBuilder();
-
-            for (int i = 0; i < _borderSize - 2; i++)
+            int spaceLength = (Console.WindowWidth - text.Length) / 2 - 2;
+            string space = "";
+            for (int i = 0; i <= spaceLength; i++)
             {
-                Line.Append(_chars[i]);
+                space += " ";
             }
-            for(int i = 0; i < (Console.WindowWidth - text.Length - (_borderSize * 2)) / 2; i++)
-            {
-                Line.Append(' ');
-            }
-
-            return Line.ToString() + text + TrueReverse(Line);
+            return space + text + space;
         }
+        public static void ToCenterY(int length)
+        {
+            for (int j = 0; j < Console.WindowHeight / 2 - (length - 2) - 4; j++)
+            {
+                Console.WriteLine();
+            }
+        }
+        public static string ToSide(string text)
+        {
+            int spaceLength = (Console.WindowWidth - text.Length) / 2 - 2;
+            string space = "";
+            for (int i = 0; i <= spaceLength; i++)
+            {
+                space += " ";
+            }
+            return space;
+        }
+
         private static string TrueReverse(StringBuilder text)
         {
             char[] reverseChar = text.ToString().Reverse().ToArray();
-            StringBuilder reverseFinal = new StringBuilder();
-
-            for (int i = 0; i < reverseChar.Length; i++)
-            {
-                reverseFinal.Append(reverseChar[i]);
-            }
-
-            return reverseFinal.ToString();
+            return new string(reverseChar);
         }
     }
 }

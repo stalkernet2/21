@@ -8,22 +8,22 @@ namespace _21
 {
     public class Control
     {
-        public static void WhichKeyWasPress(ConsoleKeyInfo key)
+        public static void WhichKeyWasPress(ConsoleKey key)
         {
-            switch (key.Key)
+            switch (key)
             {
                 case ConsoleKey.Escape:
-                    if (Game.InMenu && !Game.GameStart)
+                    if (Frame.Index != (int)Player.In.Menu)
+                    {
+                        Frame.Index = (int)Player.In.Menu;
+                    }
+                    else
                     {
                         Environment.Exit(0);
                     }
-                    else if (Game.GameStart)
-                    {
-                        Game.GameStart = false;
-                    }
                     break;
                 case ConsoleKey.Spacebar:
-                    if (Game.GameStart)
+                    if (Frame.Index == (int)Player.In.Game)
                     {
                         Game.Player.Draw();
                         if (Game.Opponent.Cards.Sum() <= 21)
@@ -33,9 +33,9 @@ namespace _21
                     }
                     break;
                 case ConsoleKey.Enter:
-                    if (!Game.GameStart)
+                    if (Frame.Index != (int)Player.In.Game)
                     {
-                        Menu.Selected();
+                        Menu.Select();
                     }
                     else
                     {
@@ -45,7 +45,7 @@ namespace _21
                             Game.Opponent.IsItWorthTaking(cardSum);
                             cardSum = Game.Opponent.Cards.Sum();
                         }
-                        Check.WhoWin(Game.Player.Cards, Game.Opponent.Cards);
+                        Check.WhoWin();
                     }
                     break;
                 case ConsoleKey.UpArrow:

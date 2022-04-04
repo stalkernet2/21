@@ -1,33 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace _21
+﻿namespace _21
 {
     internal class Check
     {
-        public static void WhoWin(int[] playerCards, int[] opponentCards)
+        public static void WhoWin()
         {
-            int playerSum = playerCards.Sum();
-            int opponentSum = opponentCards.Sum();
+            int playerSum = Game.Player.Cards.Sum();
+            int opponentSum = Game.Opponent.Cards.Sum();
 
             if (opponentSum >= 21 && playerSum >= 21)
             {
-                Frame.Draw(playerCards, opponentCards);
+                Frame.DrawEnd("Ничья!");
             }
             else if (playerSum > 21 || (opponentSum > playerSum && opponentSum <= 21))
             {
-                Frame.Lose(playerCards, opponentCards);
+                Frame.DrawEnd("Вы проиграли!");
             }
-            else if (opponentSum > 21 || (playerSum > opponentSum && playerSum <=21))
+            else if (opponentSum > 21 || (playerSum > opponentSum && playerSum <= 21))
             {
-                Frame.Win(playerCards, opponentCards);
+                Frame.DrawEnd("Вы выиграли!");
             }
             else
             {
-                Frame.Draw(playerCards, opponentCards);
+                Frame.DrawEnd("Ничья!");
             }
         }
     }
