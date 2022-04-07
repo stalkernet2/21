@@ -2,6 +2,7 @@
 {
     internal class Check
     {
+        public static string Text { get; private set; }
         public static void WhoWin()
         {
             int playerSum = Game.Player.Cards.Sum();
@@ -9,19 +10,23 @@
 
             if (opponentSum >= 21 && playerSum >= 21)
             {
-                Frame.DrawEnd("Ничья!");
+                Text = "Ничья!";
+                FramePool.Draw();
             }
             else if (playerSum > 21 || (opponentSum > playerSum && opponentSum <= 21))
             {
-                Frame.DrawEnd("Вы проиграли!");
+                Text = "Вы проиграли!";
+                FramePool.Draw();
             }
             else if (opponentSum > 21 || (playerSum > opponentSum && playerSum <= 21))
             {
-                Frame.DrawEnd("Вы выиграли!");
+                Text = "Вы выиграли!";
+                FramePool.Draw();
             }
             else
             {
-                Frame.DrawEnd("Ничья!");
+                Text = "Ничья!";
+                FramePool.Draw();
             }
         }
     }

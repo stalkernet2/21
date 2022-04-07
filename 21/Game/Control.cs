@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace _21
+﻿namespace _21
 {
     public class Control
     {
@@ -13,9 +7,9 @@ namespace _21
             switch (key)
             {
                 case ConsoleKey.Escape:
-                    if (Frame.Index != (int)Player.In.Menu)
+                    if (FramePool.Index != (int)Player.In.Menu)
                     {
-                        Frame.Index = (int)Player.In.Menu;
+                        FramePool.Index = (int)Player.In.Menu;
                     }
                     else
                     {
@@ -23,9 +17,16 @@ namespace _21
                     }
                     break;
                 case ConsoleKey.Spacebar:
-                    if (Frame.Index == (int)Player.In.Game)
+                    if (FramePool.Index == (int)Player.In.Game)
                     {
-                        Game.Player.Draw();
+                        if (Game.Player.Cards.Sum() >= 21)
+                        {
+                            goto case ConsoleKey.Enter;
+                        }
+                        else
+                        {
+                            Game.Player.Draw();
+                        }
                         if (Game.Opponent.Cards.Sum() <= 21)
                         {
                             Game.Opponent.Draw();
@@ -33,19 +34,21 @@ namespace _21
                     }
                     break;
                 case ConsoleKey.Enter:
-                    if (Frame.Index != (int)Player.In.Game)
+                    if (FramePool.Index != (int)Player.In.Game)
                     {
                         Menu.Select();
                     }
                     else
                     {
-                        int cardSum = Game.Opponent.Cards.Sum();    
+                        int cardSum = Game.Opponent.Cards.Sum();
                         while (cardSum < 16)
                         {
                             Game.Opponent.IsItWorthTaking(cardSum);
                             cardSum = Game.Opponent.Cards.Sum();
                         }
+                        FramePool.Index = (int)Player.In.End;
                         Check.WhoWin();
+                        Console.ReadKey();
                     }
                     break;
                 case ConsoleKey.UpArrow:

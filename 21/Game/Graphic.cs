@@ -4,7 +4,7 @@ namespace _21
 {
     public class Graphic
     {
-        private static readonly int BorderSize = 5;
+        private static readonly int BorderSize = 3;
         private static readonly char[] BorderChars = new char[4] { '\u2588', '\u2593', '\u2592', '\u2591' };
 
         public static string ShowCardsOf(int[] cards)
@@ -21,24 +21,32 @@ namespace _21
             }
             return sb.ToString();
         }
-        public static string BorderY(int offset)
+
+        public static void ColorText(string text)
         {
-            
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.WriteLine(text);
+            Console.ResetColor();
+        }
+        public static string Border(int offset)
+        {
+
             StringBuilder borderLine = new StringBuilder();
 
-            for (int i = 0; i < BorderSize - 2; i++)
+            for (int i = 0; i < BorderSize; i++)
             {
                 for (int j = 0; j < Console.WindowWidth - 1; j++)
                 {
                     borderLine.Append(BorderChars[i]);
                 }
-                if (i != BorderSize - 3)
+                if (i != BorderSize - 1)
                 {
                     borderLine.Append('\n');
                 }
             }
-            
-            switch(offset)
+
+            switch (offset)
             {
                 case 1:
                     return borderLine.ToString();
@@ -46,22 +54,22 @@ namespace _21
                     return TrueReverse(borderLine);
                 default:
                     throw new Exception();
-            }    
+            }
         }
 
-        public static string ToCenterX(string text)
+        public static string ToCenterX(string offsetText)
         {
-            int spaceLength = (Console.WindowWidth - text.Length) / 2 - 2;
+            int spaceLength = (Console.WindowWidth - offsetText.Length) / 2 - 2;
             string space = "";
             for (int i = 0; i <= spaceLength; i++)
             {
                 space += " ";
             }
-            return space + text + space;
+            return space + offsetText + space;
         }
-        public static void ToCenterY(int length)
+        public static void ToCenterY(int offset)
         {
-            for (int j = 0; j < Console.WindowHeight / 2 - (length - 2) - 4; j++)
+            for (int j = 0; j < Console.WindowHeight / 2 - (offset - 2) - 4; j++)
             {
                 Console.WriteLine();
             }

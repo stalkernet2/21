@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace _21
+﻿namespace _21
 {
     public class Game
     {
         public static Hand Player = new Hand();
         public static Hand Opponent = new Hand();
 
+        public static Deck Pack = new Deck();
+
         public static void Start()
         {
             while (true)
             {
-                Frame.Draw();
+                FramePool.Draw();
 
                 Control.WhichKeyWasPress(Console.ReadKey().Key);
             }
