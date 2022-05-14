@@ -39,6 +39,7 @@
                 {
                     Graphic.ToCenterY(MenuText.Length);
                 }
+
                 if (i != index)
                 {
                     Console.WriteLine(Graphic.ToCenterX(MenuText[i]));
@@ -46,11 +47,8 @@
                 else
                 {
                     Console.Write(Graphic.ToSide(MenuText[i]));
-                    Graphic.ColorText(MenuText[i]);
-                }
-                if (i == MenuText.Length - 1)
-                {
-                    Graphic.ToCenterY(MenuText.Length);
+                    Graphic.InverseText(MenuText[i]);
+                    Console.WriteLine();
                 }
             }
         }
@@ -69,8 +67,8 @@
             FramePool.Index = (int)Player.In.Game;
             for (int i = 0; i < 2; i++)
             {
-                Game.Player.Draw();
-                Game.Opponent.Draw();
+                Game.Player.Take();
+                Game.Opponent.Take();
             }
 
         }

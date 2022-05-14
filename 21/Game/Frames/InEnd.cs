@@ -1,15 +1,17 @@
 ﻿namespace _21.Frames
 {
-    class InEnd : IFrame
+    class InEnd : AbstractFrame
     {
-        public void Make()
+        public override void Make()
         {
-
             Console.WriteLine(Check.Text);
             Console.WriteLine("Ваши карты");
-            Console.WriteLine(Graphic.ShowCardsOf(Game.Player.Cards));
-            Console.WriteLine("Карты опонента");
-            Console.WriteLine(Graphic.ShowCardsOf(Game.Opponent.Cards));
+            Graphic.ShowCardsOf(Game.Player.Cards);
+
+            //Console.WriteLine(Graphic.ShowCardsOf(Game.Player.Cards));
+            Console.WriteLine("\nКарты опонента");
+            Graphic.ShowCardsOf(Game.Opponent.Cards);
+            //Console.WriteLine(Graphic.ShowCardsOf(Game.Opponent.Cards));
             FramePool.Index = (int)Player.In.Menu;
         }
     }

@@ -1,8 +1,8 @@
 ﻿namespace _21.Frames
 {
-    class InMenu : IFrame
+    class InMenu : AbstractFrame
     {
-        public void Make()
+        public override void Make()
         {
             Menu.ChooseIndex();
         }

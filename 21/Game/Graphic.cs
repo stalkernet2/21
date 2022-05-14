@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using ColoredObj;
+using System.Text;
 
 namespace _21
 {
@@ -7,29 +8,53 @@ namespace _21
         private static readonly int BorderSize = 3;
         private static readonly char[] BorderChars = new char[4] { '\u2588', '\u2593', '\u2592', '\u2591' };
 
-        public static string ShowCardsOf(int[] cards)
+        public static void ShowHiddenOf(card[] cards)
         {
-            StringBuilder sb = new StringBuilder();
+            Console.Write(ToSide(ExistingCards(cards) * 5));
             for (int i = 0; i < cards.Length; i++)
             {
-                if (cards[i] == 0)
-                    sb.Append("  ");
-                else if (i < cards.Length - 1)
-                    sb.Append(cards[i] + " ");
+                if (cards[i] != null)
+                {
+                    Colored.Text(ConsoleColor.DarkMagenta, ConsoleColor.DarkMagenta, ' ');
+                    Colored.Text(ConsoleColor.Blue, ConsoleColor.Blue, ' ');
+                    Colored.Text(ConsoleColor.Blue, ConsoleColor.Blue, ' ');
+                    Colored.Text(ConsoleColor.DarkMagenta, ConsoleColor.DarkMagenta, ' ');
+                    Console.Write(' ');
+                }
                 else
-                    sb.Append(cards[i]);
+                {
+                    break;
+                }
             }
-            return sb.ToString();
+            Console.WriteLine();
         }
 
-        public static void ColorText(string text)
+        public static void ShowCardsOf(card[] cards)
         {
-            Console.ForegroundColor = ConsoleColor.Black;
-            Console.BackgroundColor = ConsoleColor.White;
-            Console.WriteLine(text);
-            Console.ResetColor();
+            Console.Write(ToSide(ExistingCards(cards) * 5));
+
+            for(int i = 0; i < cards.Length; i++)
+            {
+                if (cards[i] != null)
+                {
+                    string space = cards[i].Number > 9 && cards[i].Word != "A" ? " " : "  ";
+
+                    Colored.Text(cards[i].Color, ConsoleColor.White, cards[i].Word + space + cards[i].Sumbol);
+                    Console.Write(" ");
+                }
+                else
+                {
+                    break;
+                }
+            }
         }
-        public static string Border(int offset)
+
+        public static void InverseText(string text)
+        {
+            Colored.InverseText(text);
+        }
+
+        public static string Border(bool inDown)
         {
 
             StringBuilder borderLine = new StringBuilder();
@@ -46,14 +71,18 @@ namespace _21
                 }
             }
 
-            switch (offset)
+            switch (inDown)
             {
-                case 1:
+                case false:
                     return borderLine.ToString();
-                case -1:
-                    return TrueReverse(borderLine);
-                default:
-                    throw new Exception();
+                case true:
+                    string space = "";
+
+                    for (int i = 0; i < (Console.WindowHeight - (Console.CursorTop + 4)); i++)
+                    {
+                        space += "\n";
+                    }
+                    return space + TrueReverse(borderLine);
             }
         }
 
@@ -67,6 +96,7 @@ namespace _21
             }
             return space + offsetText + space;
         }
+
         public static void ToCenterY(int offset)
         {
             for (int j = 0; j < Console.WindowHeight / 2 - (offset - 2) - 4; j++)
@@ -74,9 +104,21 @@ namespace _21
                 Console.WriteLine();
             }
         }
+
         public static string ToSide(string text)
         {
             int spaceLength = (Console.WindowWidth - text.Length) / 2 - 2;
+            string space = "";
+            for (int i = 0; i <= spaceLength; i++)
+            {
+                space += " ";
+            }
+            return space;
+        }
+
+        public static string ToSide(int offset)
+        {
+            int spaceLength = (Console.WindowWidth - offset) / 2 - 2;
             string space = "";
             for (int i = 0; i <= spaceLength; i++)
             {
@@ -89,6 +131,19 @@ namespace _21
         {
             char[] reverseChar = text.ToString().Reverse().ToArray();
             return new string(reverseChar);
+        }
+
+        private static int ExistingCards(card[] cards)
+        {
+            int offset = 0;
+            for (int i = 0; i < cards.Length; i++)
+            {
+                if (cards[i] != null)
+                    offset++;
+                else
+                    break;
+            }
+            return offset;
         }
     }
 }

@@ -19,17 +19,20 @@
                 case ConsoleKey.Spacebar:
                     if (FramePool.Index == (int)Player.In.Game)
                     {
-                        if (Game.Player.Cards.Sum() >= 21)
+                        Check.Combinations();
+
+                        if (Check.Sum(Game.Player.Cards) > 21 || Check.player_haveCombination || Check.opponent_haveCombination)
                         {
                             goto case ConsoleKey.Enter;
                         }
                         else
                         {
-                            Game.Player.Draw();
+                            Game.Player.Take();
                         }
-                        if (Game.Opponent.Cards.Sum() <= 21)
+
+                        if (Check.Sum(Game.Opponent.Cards) < 17)
                         {
-                            Game.Opponent.Draw();
+                            Game.Opponent.Take();
                         }
                     }
                     break;
@@ -40,14 +43,17 @@
                     }
                     else
                     {
-                        int cardSum = Game.Opponent.Cards.Sum();
-                        while (cardSum < 16)
+                        int cardSum = Check.Sum(Game.Opponent.Cards);
+
+                        while (cardSum < 17)
                         {
                             Game.Opponent.IsItWorthTaking(cardSum);
-                            cardSum = Game.Opponent.Cards.Sum();
+                            cardSum = Check.Sum(Game.Opponent.Cards);
                         }
+
                         FramePool.Index = (int)Player.In.End;
                         Check.WhoWin();
+
                         Console.ReadKey();
                     }
                     break;
