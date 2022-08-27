@@ -1,4 +1,6 @@
-﻿namespace _21
+﻿using _21.Frame;
+
+namespace _21.Controls
 {
     public class Control
     {
@@ -39,7 +41,7 @@
                 case ConsoleKey.Enter:
                     if (FramePool.Index != (int)Player.In.Game)
                     {
-                        Menu.Select();
+                        Game.MainMenu.InvokeAction();
                     }
                     else
                     {
@@ -58,10 +60,10 @@
                     }
                     break;
                 case ConsoleKey.UpArrow:
-                    Menu.Index -= 1;
+                    Game.MainMenu.MoveToUpElement();
                     break;
                 case ConsoleKey.DownArrow:
-                    Menu.Index += 1;
+                    Game.MainMenu.MoveToDownElement();
                     break;
             }
         }

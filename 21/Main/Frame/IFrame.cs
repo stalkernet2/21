@@ -1,6 +1,6 @@
-﻿namespace _21.Frames
+﻿namespace _21.Frame
 {
-    abstract class AbstractFrame
+    interface IFrame : ISome
     {
         public void Show()
         {
@@ -10,6 +10,6 @@
             Console.WriteLine(Graphic.Border(true));
         }
 
-        public abstract void Make();
+        public void Make();
     }
 }

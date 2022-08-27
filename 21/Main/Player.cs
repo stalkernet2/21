@@ -7,7 +7,7 @@
             Menu,
             Help,
             Game,
-            End,
+            End
         };
     }
 }

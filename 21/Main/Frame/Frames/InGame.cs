@@ -1,8 +1,8 @@
-﻿namespace _21.Frames
+﻿namespace _21.Frame.Frames
 {
-    class InGame : AbstractFrame
+    class InGame : IFrame
     {
-        public override void Make()
+        public void Make()
         {
             Console.WriteLine("GameDrawed");
             Graphic.ShowHiddenOf(Game.Opponent.Cards);

@@ -1,4 +1,5 @@
-﻿namespace _21
+﻿using _21.Frame;
+namespace _21
 {
     internal class Check
     {
@@ -34,7 +35,7 @@
             }
         }
 
-        public static int Sum(card[] cards)
+        public static int Sum(Card[] cards)
         {
             int sum = 0;
             for (int i = 0; i < cards.Length; i++)
@@ -55,7 +56,7 @@
 
     static class Extentions
     {
-        internal static bool Combination(this bool nonUse, card[] cards)
+        internal static bool Combination(this bool nonUse, Card[] cards)
         {
             int cardsLength = 0;
             for (int i = 0; i < cards.Length; i++)
@@ -63,6 +64,10 @@
                 if (cards[i] != null)
                 {
                     cardsLength++;
+                }
+                else
+                {
+                    break;
                 }
             }
 

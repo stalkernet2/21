@@ -1,8 +1,8 @@
-﻿namespace _21.Frames
+﻿namespace _21.Frame.Frames
 {
-    class InHelp : AbstractFrame
+    class InHelp : IFrame
     {
-        public override void Make()
+        public void Make()
         {
             Console.WriteLine(Graphic.ToCenterX("Здесь, пока-что, ничего нету"));
         }

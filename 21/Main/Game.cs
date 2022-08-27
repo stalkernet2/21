@@ -1,11 +1,15 @@
-﻿namespace _21
+﻿using _21.Frame;
+using _21.Controls;
+
+namespace _21
 {
     public class Game
     {
-        public static Hand Player = new Hand();
-        public static Hand Opponent = new Hand();
+        public static Hand Player;
+        public static Hand Opponent;
 
-        public static Deck Pack = new Deck();
+        public static Deck Pack;
+        public static IMenuProvider MainMenu = new DefaultMenu();
 
         public static void Start()
         {

@@ -1,8 +1,8 @@
-﻿namespace _21.Frames
+﻿namespace _21.Frame.Frames
 {
-    class InEnd : AbstractFrame
+    class InEnd : IFrame
     {
-        public override void Make()
+        public void Make()
         {
             Console.WriteLine(Check.Text);
             Console.WriteLine("Ваши карты");
